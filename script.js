@@ -1,15 +1,38 @@
 //APIsUrl
+    //Random User API
 rUApiUrl = "https://randomuser.me/api/"
 
 //Classes
+class Player {
+    constructor(country,ship, score) {
+      this.country = country;
+      this.ship = ship;
+      this.score = score;
+    }
+  }
+
 class Pirate {
-    constructor(portrait, name, health, attack,defense,warcry, crew) {
-      this.name = portrait;
+    constructor(portrait, name, health, attack,defense,warcry, nation, crew) {
+      this.portrait = portrait;
       this.name = name;
       this.health = health;
       this.attack = attack;
       this.defense = defense;
       this.warcry = warcry;
+      this.nation = nation
+      this.crew = crew;
+    }
+  }
+
+  class Ship {
+    constructor(faction, flag, name, cannons, health,sails, crew) {
+      this.faction = faction;
+      this.faction = flag;
+      this.name = name;
+      this.health = health;
+      this.cannons = cannons;
+      this.health = health;
+      this.sails = sails;
       this.crew = crew;
     }
   }
@@ -21,6 +44,9 @@ const enemyShipHTML = document.querySelector("#enemy-ship")
 //variables
 let playerCrew= []
 let enemyCrew = []
+
+
+//Functions
 
 function CrewUp(number,country,faction) {
     console.log(`${rUApiUrl}?nat=${country}&results=${number}`)
@@ -37,7 +63,7 @@ pirateCard.innerHTML = `
                 <div class="text-center"> 
                 <img src=${pirate.portrait} width="50vw" class="rounded-circle border-info border-3">
                     <h3 class="mt-2">${pirate.name}</h3>
-                    <span class="mt-1 clearfix">${pirate.crew}</span>
+                    <span class="mt-1 clearfix">${pirate.crew} ${getFlagEmoji(pirate.nation)}</span>
                     
                     <div class="row mt-3 mb-3">
                     
@@ -81,8 +107,8 @@ function pirateSquad (results,faction){
     results.forEach(prt => {let pirate = new Pirate;
                             pirate.portrait = prt.picture.large
                             pirate.name = `${prt.name.first} ${prt.name.last}`
+                            pirate.nation = prt.nat
                             let digits = prt.cell.replace(/\D/g, '').replace("0","");
-                            let rNh =Math.random()*10
                             pirate.health = attributeRandomizer(digits)
                             pirate.attack = attributeRandomizer(digits)
                             pirate.defense = attributeRandomizer(digits)
@@ -112,7 +138,19 @@ function pirateSorter (faction){
         crew = enemyCrew
     }
 }
+
+//flags as emojis
+function getFlagEmoji(countryCode) {
+  const codePoints = countryCode
+    .toUpperCase()
+    .split('')
+    .map(char =>  127397 + char.charCodeAt());
+  return String.fromCodePoint(...codePoints);
+}
+
+//Initialize Game
+
 CrewUp(6,"es","player")
-CrewUp(3,"uk","enemy")
+CrewUp(3,"gb","enemy")
 console.log(playerCrew)
 
