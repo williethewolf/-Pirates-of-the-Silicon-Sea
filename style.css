@@ -11,11 +11,28 @@ body{
     border-width:4px !important;
 }
 
+.big-box,
+.mini-box {
+    /* background-color: #10BCFF;
+    color: white; */
+    text-align: center;
+    margin: 2px;
+    font-size: 1em;
+    font-weight: bolder;
+}
+.big-box {
+    /* height: 65px; */
+    line-height: 60px;
+}
+.mini-box {
+    height: 30px;
+    line-height: 30px;
+}
 
 #ocean-bg{
     background-color: darkseagreen;
 }
 
 #noman-land{
-    height: 23vh;
+    height: 2vh;
 }

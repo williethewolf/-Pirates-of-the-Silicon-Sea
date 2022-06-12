@@ -2,6 +2,9 @@
     //Random User API
 rUApiUrl = "https://randomuser.me/api/"
 
+//Name generator node import
+//import {  uniqueNamesGenerator, adjectives, colors, animals, names, languages } from 'unique-names-generator';
+
 //Classes
 class Player {
     constructor(country,ship, score) {
@@ -25,13 +28,14 @@ class Pirate {
   }
 
   class Ship {
-    constructor(faction, flag, name, cannons, health,sails, crew) {
+    constructor(faction, flag, name, cannons, health, speed, sails, crew) {
       this.faction = faction;
-      this.faction = flag;
+      this.flag = flag;
       this.name = name;
       this.health = health;
       this.cannons = cannons;
       this.health = health;
+      this.speed = speed
       this.sails = sails;
       this.crew = crew;
     }
@@ -119,6 +123,25 @@ function pirateSquad (results,faction){
 
 }
 
+function masterShipBuilder(){
+
+}
+
+function generateShipName(){
+  const dicList= ["adjectives", "colors", "languages", "animals", "names", "numberDictionary"]
+  let curatedDicList = []
+  dicList.forEach(dic => (Math.random() < 0.5) ?  null : curatedDicList.push(dic) ) 
+  console.log(curatedDicList)
+  //const numberDictionary = NumberDictionary.generate({ min: 0, max: 999 });
+  const shipName = uniqueNamesGenerator({
+    dictionaries: [adjectives, colors, languages, animals, names,],//removed for now: numberDictionary/
+      length: 3,
+      separator: '',
+      style: 'capital'
+    })
+    return shipName
+}
+
 function attributeRandomizer (digits){
     let rNh =Math.random()*10
     while(rNh> (digits.length-2)){
@@ -150,7 +173,8 @@ function getFlagEmoji(countryCode) {
 
 //Initialize Game
 
-CrewUp(6,"es","player")
-CrewUp(3,"gb","enemy")
+CrewUp(2,"es","player")
+CrewUp(2,"gb","enemy")
+//generateShipName()
 console.log(playerCrew)
 
