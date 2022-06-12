@@ -126,15 +126,15 @@ function pirateCard (pirate,faction){
         
           <div class="col-md-4">
             <h5>Vigor</h5>
-            <span class="num">${pirate.health}</span>
+            <span class="text-success">${pirate.health}</span>
           </div>
           <div class="col-md-4">
           <h5>Bravado</h5>
-            <span class="num">${pirate.attack}</span>
+            <span class="text-danger">${pirate.attack}</span>
           </div>
           <div class="col-md-4">
           <h5>Sealegs</h5>
-            <span class="num">${pirate.defense}</span>
+            <span class="text-info">${pirate.defense}</span>
           </div>
         
         </div>
