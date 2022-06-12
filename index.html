@@ -53,127 +53,8 @@
                   <div class="card-header">
                     Player Crew
                   </div>
-                  <div class="accordion">
-                    <div class="accordion-item">
-                      
-                        <h2 class="accordion-header" id="pirateOne">
-                          
-                          <button class="btn btn-link text-decoration-none font-weight-bold link-dark" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <div class="container-fluid">
-                            <div class = "row">
-                              <div class="col big-box">
-                                <img src="https://i.imgur.com/stD0Q19.jpg" width="50" class="rounded-circle">
-                              </div>
-                            
-                            <div class="col">
-                            <div class="row">
-                              <div = class = "col mini-box">
-                                <span class="text-nowrap">Slavatore Perinni</span>
-                              </div>
-                              </div>
-                            
-                            <div class="row">
-                              <div = class = "col mini-box">
-                                <span class="text-success">V:6</span>
-                              </div>
-                              <div = class = "col mini-box">
-                                <span class="text-danger">B:5</span>
-                              </div>
-                              <div class = "col mini-box">
-                                <span class="text-info">S:7</span>
-                              </div>
-                            </div>
-                          </div>
-                          </div>
-                          </div>   
-                          </button>
-                          <span class="mt-1 clearfix">${pirate.crew} ${getFlagEmoji(pirate.nation)}</span>
-                        </h2>
-                        <button class="btn btn-link text-decoration-none font-weight-bold link-dark" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          <div class="container-fluid">
-                          <div class = "row">
-                            <div class="col big-box">
-                              <img src="https://i.imgur.com/stD0Q19.jpg" width="150" class="rounded-circle mx-auto"">
-                            </div>
-                         
-                        </div>   
-                        </button>
-                  
-                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
-                        <hr class="line">
-                          <div class="text-center"> 
-                            <img src=${pirate.portrait} width="50vw" class="rounded-circle border-info border-3">
-                                <h3 class="mt-2">${pirate.name}</h3>
-                                <span class="mt-1 clearfix">${pirate.crew} ${getFlagEmoji(pirate.nation)}</span>
-                                
-                                <div class="row mt-3 mb-3">
-                                
-                                  <div class="col-md-4">
-                                    <h5>Vigor</h5>
-                                    <span class="num">${pirate.health}</span>
-                                  </div>
-                                  <div class="col-md-4">
-                                  <h5>Bravado</h5>
-                                    <span class="num">${pirate.attack}</span>
-                                  </div>
-                                  <div class="col-md-4">
-                                  <h5>Sealegs</h5>
-                                    <span class="num">${pirate.defense}</span>
-                                  </div>
-                                
-                                </div>
-                                <div class="d-none">
-                                <hr class="line">
-                                <div>
-                                <small class="mt-4">A random quote</small>
-                               
-                                  <div class="afflictions-buttons mt-1"> 
-                                  <span>Afflictions:</span>
-                                   <button class="neo-button"><i class="fa fa-facebook fa-1x"></i> </button> 
-                                   <button class="neo-button"><i class="fa fa-linkedin fa-1x"></i></button> 
-                                   <button class="neo-button"><i class="fa fa-google fa-1x"></i> </button> 
-                                   <button class="neo-button"><i class="fa fa-youtube fa-1x"></i> </button>
-                                   <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
-                                  </div>
-                                  
-                                 <div class="profile m-2">
-                                 
-                                 <button class="profile_button px-5">Throw Overboard</button>
-                                 </div>
-                                </div>
+                  <div class="accordion" id="friendly-crewlist">
                     
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header" id="headingTwo">
-                        <h5 class="mb-0">
-                          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Collapsible Group Item #2
-                          </button>
-                        </h5>
-                      </div>
-                      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                        <div class="card-body">
-                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <div class="card-header" id="headingThree">
-                        <h5 class="mb-0">
-                          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Collapsible Group Item #3
-                          </button>
-                        </h5>
-                      </div>
-                      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                        <div class="card-body">
-                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                      </div>
-                    </div>
                   </div>
               </div>
               <div class="col">
@@ -213,13 +94,8 @@
                   <div class="card-header">
                     Enemy Crew
                   </div>
-                  <div class="card" style="width: 18rem;">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">Cras justo odio</li>
-                      <li class="list-group-item">Dapibus ac facilisis in</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
-                  </div>
+                  <div class="accordion" id="enemy-crewlist">
+                    
                 </div>
               </div>   
             

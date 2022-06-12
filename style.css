@@ -29,6 +29,10 @@ body{
     line-height: 30px;
 }
 
+.flag-box {
+    width: 5px;
+}
+
 #ocean-bg{
     background-color: darkseagreen;
 }
