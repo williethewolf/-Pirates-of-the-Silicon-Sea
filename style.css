@@ -35,13 +35,89 @@ body{
 
 .boat{
     background-color:saddlebrown;
-    height: 15vh;
+    z-index: -1;
     border-top: solid rgb(67, 39, 5) 6px;
     border-bottom: solid rgb(67, 39, 5) 6px;
+    
+}
+.boat-decor-left{
+    border-left: solid rgb(67, 39, 5) 6px;
+    z-index: 2;
+    width: 125px;
+     height: 100px;
+     border-radius: 0 0 0 350px;
+     -moz-border-radius: 0 0 0 125px;
+     -webkit-border-radius: 100px 0px 0px 100px;
 }
 
+.boat-decor-right{
+    
+    margin-left: -10px !important;
+    z-index: 2;
+    width: 5px;
+     height: 100px;
+     border-radius: 0 0 0 350px;
+     -moz-border-radius: 0 0 0 125px;
+     -webkit-border-radius: 100px 0px 0px 100px;
+}
+
+.circle-small-attack {
+    text-align: center;
+    border-radius: 50%;
+    background:rgb(152, 17, 17);
+    color: white;
+    display:block;
+    position: absolute;
+    width:32px !important;
+    height:32px !important;
+    float: right;
+    margin-top: -26% !important;
+    padding-bottom: 2px;
+    margin-right: -14px;
+    right: 80px;
+    z-index: 3;
+  }
+
+  .circle-small-health {
+    text-align: center;
+    border-radius: 50%;
+    background: rgb(55, 186, 34);
+    color: white;
+    display: block;
+    position: absolute;
+    width: 32px !important;
+    height: 32px !important;
+    float: none;
+    margin-top: -15% !important;
+    left: 27px;
+    margin-right: -8px;
+    z-index: 3;
+  }
+
+  .circle-small-defense {
+    text-align: center;
+    border-radius: 50%;
+    background: rgb(21, 59, 141);
+    color: white;
+    display: block;
+    position: absolute;
+    width: 32px !important;
+    height: 32px !important;
+    float: left;
+    margin-top: -26% !important;
+    right: 25px;
+    margin-right: -25px;
+    z-index: 3;
+  }
+
+  .friendly-cannon{
+    transform: rotate(-90deg);
+  }
+  .enemy-cannon{
+    transform: rotate(90deg);
+}
 .manowar{
-    dis
+    
 }
 
 #noman-land{
