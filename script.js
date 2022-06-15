@@ -70,15 +70,17 @@ function pirateCard (pirate,faction){
   <div class="d-grid">                        
   <button class="btn btn-link text-decoration-none font-weight-bold link-dark "  data-bs-toggle="collapse" data-bs-target=" #photobutton${generateUniqueID(pirate.name)}, #collapse${generateUniqueID(pirate.name)}, #${generateUniqueID(pirate.name)}" aria-expanded="true" aria-controls="collapse1">
     <div class="container-fluid">
-    <div class = "row">
-    <div class="col flag-box">
-    <span class="fs-6 fw-light lh-1">${getFlagEmoji(pirate.nation)}</span>
+    <div class = "row align-items-center">
+    <div class="col-1 col-s flag-box">
+      <div class= "container d-flex">
+        <span class="fs-6 fw-light lh-1">${getFlagEmoji(pirate.nation)}</span>
       </div>
-      <div class="col big-box">
+      </div>
+      <div class="col-3 col-s big-box">
         <img src=${pirate.portrait} width="50" class="rounded-circle">
       </div>
     
-    <div class="col">
+    <div class="col-6 col-s">
     <div class="row">
       <div = class = "col mini-box">
         <span class="text-nowrap">${pirate.name}</span>
@@ -231,7 +233,9 @@ function pirateSquad (results,faction){
 function masterShipBuilder(){
 
 }
+//Different ship type builder
 
+// Ship generator. Not implemented
 function generateShipName(){
   const dicList= ["adjectives", "colors", "languages", "animals", "names", "numberDictionary"]
   let curatedDicList = []
@@ -247,6 +251,7 @@ function generateShipName(){
     return shipName
 }
 
+//Uses the input to retur a random number based of the digits input, which can't return zero
 function attributeRandomizer (digits){
     let rNh =Math.random()*10
     while(rNh> (digits.length-2)){
@@ -256,6 +261,7 @@ function attributeRandomizer (digits){
      return  result != 0 ? result : "1"
 }
 
+//Places the piratein the right ship
 function pirateSorter (faction){
     if (faction=="player"){
         factionListHTML= playerCrewListHTML  
@@ -269,7 +275,7 @@ function pirateSorter (faction){
     }
 }
 
-//uniqueIDGenerator
+//uniqueIDGenerator for pirates to populate their card
 function generateUniqueID(string){
  return string.replace(/\s+/g, '')
 }
