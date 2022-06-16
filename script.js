@@ -17,6 +17,7 @@ class Player {
 class Pirate {
     constructor(portrait, name, health, attack,defense,warcry, nation, crew) {
       this.portrait = portrait;
+      this.id = null;
       this.name = name;
       this.health = health;
       this.attack = attack;
@@ -47,6 +48,13 @@ const playerShipHTML = document.querySelector("#player-ship")
 const enemyShipHTML = document.querySelector("#enemy-ship")
 const playerCrewListHTML = document.querySelector("#friendly-crewlist")
 const enemyCrewListHTML = document.querySelector("#enemy-crewlist")
+const playerShipDeckHTML = document.querySelector("#player-shipdeck")
+const enemyShipDeckHTML = document.querySelector("#enemy-shipdeck")
+//Game buttons
+const playerButtons = document.querySelector("#playerbuttons")
+const enemyButtons = document.querySelector("#enemybuttons")
+
+
 //variables
 let playerCrew= []
 let enemyCrew = []
@@ -63,6 +71,7 @@ function CrewUp(number,country,faction) {
 }
 
 function pirateCard (pirate,faction){
+  pirate.id = generateUniqueID(pirate.name)
   let pirateCard = document.createElement("div")
   pirateCard.setAttribute("class","accordion-item")
   pirateCard.innerHTML = `
@@ -118,7 +127,7 @@ function pirateCard (pirate,faction){
 </div>   
 </button>
 </div>
-<div id="collapse${generateUniqueID(pirate.name)}" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
+<div id="collapse${pirate.id}" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
 
   <div class="text-center"> 
         <h3 class="mt-2">${pirate.name}</h3>
@@ -166,51 +175,20 @@ function pirateCard (pirate,faction){
   faction.appendChild(pirateCard)                
   }
 
-// function pirateCard (pirate,faction){
-// let pirateCard = document.createElement("div")
-// pirateCard.setAttribute("class","card p-3 py-4 pirate-card")
-// pirateCard.innerHTML = `
-//                 <div class="text-center"> 
-//                 <img src=${pirate.portrait} width="50vw" class="rounded-circle border-info border-3">
-//                     <h3 class="mt-2">${pirate.name}</h3>
-//                     <span class="mt-1 clearfix">${pirate.crew} ${getFlagEmoji(pirate.nation)}</span>
-                    
-//                     <div class="row mt-3 mb-3">
-                    
-//                       <div class="col-md-4">
-//                         <h5>Vigor</h5>
-//                         <span class="num">${pirate.health}</span>
-//                       </div>
-//                       <div class="col-md-4">
-//                       <h5>Bravado</h5>
-//                         <span class="num">${pirate.attack}</span>
-//                       </div>
-//                       <div class="col-md-4">
-//                       <h5>Sealegs</h5>
-//                         <span class="num">${pirate.defense}</span>
-//                       </div>
-                    
-//                     </div>
-                    
-//                     <hr class="line">
-//                     <div class="d-none">
-//                     <small class="mt-4">I am an android developer working at google Inc at california,USA</small>
-//                       <div class="social-buttons mt-5"> 
-//                        <button class="neo-button"><i class="fa fa-facebook fa-1x"></i> </button> 
-//                        <button class="neo-button"><i class="fa fa-linkedin fa-1x"></i></button> 
-//                        <button class="neo-button"><i class="fa fa-google fa-1x"></i> </button> 
-//                        <button class="neo-button"><i class="fa fa-youtube fa-1x"></i> </button>
-//                        <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
-//                       </div>
-                      
-//                      <div class="profile mt-5">
-                     
-//                      <button class="profile_button px-5">View profile</button>
-//                      </div>
-        
-//                 </div>`
-// faction.appendChild(pirateCard)                
-// }
+  function allAboard(pirate,factionShip){
+  
+    let pirateAvatar = document.createElement("div")
+    pirateAvatar.setAttribute("class","col-3 p-2 position-relative")
+    pirateAvatar.innerHTML = `  <div class="row">
+                              <img src=${pirate.portrait} width="75px" class="rounded-circle mx-auto d-block">
+                            </div>
+                            <div class="row d-flex position-relative">
+                              <div class="col circle-small-attack">${pirate.attack}</div>
+                              <div class="col circle-small-health">${pirate.health}</div>
+                              <div class="col circle-small-defense">${pirate.defense}</div>
+                            </div>`
+    factionShip.appendChild(pirateAvatar)
+  }
 
 function pirateSquad (results,faction){
     pirateSorter(faction)
@@ -224,6 +202,7 @@ function pirateSquad (results,faction){
                             pirate.defense = attributeRandomizer(digits)
                             // pirateCard(pirate,factionShipHTML)
                             pirateCard(pirate, factionListHTML)
+                            allAboard(pirate, factionShipdeckHTML)
                             crew.push(pirate)
                             }
                     )
@@ -231,7 +210,23 @@ function pirateSquad (results,faction){
 }
 
 function masterShipBuilder(){
+  let ship = new Ship;
 
+  ship.faction = faction;
+  ship.flag = flag;
+  ship.name = name;
+  ship.health = 100;
+  ship.cannons = cannons;
+  ship.health = health;
+  ship.speed = speed
+  ship.sails = sails;
+  ship.crew = crew;
+ 
+  // pirateCard(pirate,factionShipHTML)
+  pirateCard(pirate, factionListHTML)
+  allAboard(pirate, factionShipdeckHTML)
+  crew.push(pirate)
+  
 }
 //Different ship type builder
 
@@ -260,17 +255,31 @@ function attributeRandomizer (digits){
     result = Math.round(digits.slice((rNh),(rNh+2))/10)
      return  result != 0 ? result : "1"
 }
+//number of cannons based on a min and a max
+function cannonInstaller(min,max){
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+//Disable buttons while not your turn
+function disableButtons(){
+  let currentbuttonSet = enemyButtons;
+  currentbuttonSet.setAttribute("style","pointer-events:none ; opacity:0.5")
+}
 
 //Places the piratein the right ship
 function pirateSorter (faction){
     if (faction=="player"){
         factionListHTML= playerCrewListHTML  
         factionShipHTML= playerShipHTML
+        factionShipdeckHTML= playerShipDeckHTML
+        // factionCannonDeckHTML = playerCanonDeckHTML
         crew = playerCrew
     }
     if (faction=="enemy"){
       factionListHTML= enemyCrewListHTML 
         factionShipHTML= enemyShipHTML
+        factionShipdeckHTML= enemyShipDeckHTML
+        //factionCannonDeckHTML = enemyCanonDeckHTML
         crew = enemyCrew
     }
 }
@@ -291,8 +300,9 @@ function getFlagEmoji(countryCode) {
 
 //Initialize Game
 
-CrewUp(2,"es","player")
-CrewUp(2,"gb","enemy")
+CrewUp(4,"es","player")
+CrewUp(4,"gb","enemy")
+disableButtons()
 //generateShipName()
 console.log(playerCrew)
 
