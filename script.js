@@ -29,7 +29,7 @@ class Pirate {
   }
 
   class Ship {
-    constructor(faction, flag, name, cannons, health, speed, sails, crew) {
+    constructor(faction, flag, name, cannons, health, speed, sails, damageAversion, crew) {
       this.faction = faction;
       this.flag = flag;
       this.name = name;
@@ -38,6 +38,7 @@ class Pirate {
       this.health = health;
       this.speed = speed
       this.sails = sails;
+      this.damageAversion = damageAversion;
       this.crew = crew;
     }
   }
@@ -50,6 +51,14 @@ const playerCrewListHTML = document.querySelector("#friendly-crewlist")
 const enemyCrewListHTML = document.querySelector("#enemy-crewlist")
 const playerShipDeckHTML = document.querySelector("#player-shipdeck")
 const enemyShipDeckHTML = document.querySelector("#enemy-shipdeck")
+const playerCanonDeckHTML = document.querySelector("#player-cannon-deck")
+const enemyCanonDeckHTML = document.querySelector("#enemy-cannon-deck")
+
+const playerShipHealth = document.querySelector("#playershiphealth")
+const playerSailHealth = document.querySelector("#playersailhealth")
+const enemyShipHealth = document.querySelector("#enemyshiphealth")
+const enemysailHealth = document.querySelector("#enemysailhealth")
+
 //Game buttons
 const playerButtons = document.querySelector("#playerbuttons")
 const enemyButtons = document.querySelector("#enemybuttons")
@@ -58,12 +67,20 @@ const enemyButtons = document.querySelector("#enemybuttons")
 //variables
 let playerCrew= []
 let enemyCrew = []
+let playerCannons = []
+let enemyCannons = []
+let playerShips =[]
+let enemyShips = []
+
+//SFX
+const cannonFX = new Audio('./assets/cannon.mp3');
+
 
 
 //Functions
 
 function CrewUp(number,country,faction) {
-    console.log(`${rUApiUrl}?nat=${country}&results=${number}`)
+    //console.log(`${rUApiUrl}?nat=${country}&results=${number}`)
     fetch(`${rUApiUrl}?nat=${country}&results=${number}`)
     .then(response => response.json())
     .then(rawPirates => {console.log(rawPirates.results);pirateSquad(rawPirates.results,faction)})
@@ -178,7 +195,7 @@ function pirateCard (pirate,faction){
   function allAboard(pirate,factionShip){
   
     let pirateAvatar = document.createElement("div")
-    pirateAvatar.setAttribute("class","col-3 p-2 position-relative")
+    pirateAvatar.setAttribute("class","col-3 p-2 position-relative avatar")
     pirateAvatar.innerHTML = `  <div class="row">
                               <img src=${pirate.portrait} width="75px" class="rounded-circle mx-auto d-block">
                             </div>
@@ -191,7 +208,7 @@ function pirateCard (pirate,faction){
   }
 
 function pirateSquad (results,faction){
-    pirateSorter(faction)
+    factionSorter(faction)
     results.forEach(prt => {let pirate = new Pirate;
                             pirate.portrait = prt.picture.large
                             pirate.name = `${prt.name.first} ${prt.name.last}`
@@ -209,33 +226,32 @@ function pirateSquad (results,faction){
 
 }
 
-function masterShipBuilder(){
+function masterShipBuilder(faction){
   let ship = new Ship;
 
   ship.faction = faction;
-  ship.flag = flag;
-  ship.name = name;
+  //ship.flag = flag;
+  ship.name = "A Ship";//implement name generator
   ship.health = 100;
-  ship.cannons = cannons;
-  ship.health = health;
-  ship.speed = speed
-  ship.sails = sails;
-  ship.crew = crew;
- 
-  // pirateCard(pirate,factionShipHTML)
-  pirateCard(pirate, factionListHTML)
-  allAboard(pirate, factionShipdeckHTML)
-  crew.push(pirate)
+  ship.cannons = RandomAttributeGenerator(4,8);
+  ship.speed = RandomAttributeGenerator(1,10)
+  ship.sails = 100;
+  ship.damageAversion = 75;
+  //ship.crew = crew;
+  factionSorter(faction)
+  cannonInstaller(ship.cannons) 
+  shipArray.push(ship)
+  console.log(ship)
   
 }
 //Different ship type builder
 
-// Ship generator. Not implemented
+// Ship name generator. Not implemented
 function generateShipName(){
   const dicList= ["adjectives", "colors", "languages", "animals", "names", "numberDictionary"]
   let curatedDicList = []
   dicList.forEach(dic => (Math.random() < 0.5) ?  null : curatedDicList.push(dic) ) 
-  console.log(curatedDicList)
+  // console.log(curatedDicList)
   //const numberDictionary = NumberDictionary.generate({ min: 0, max: 999 });
   const shipName = uniqueNamesGenerator({
     dictionaries: [adjectives, colors, languages, animals, names,],//removed for now: numberDictionary/
@@ -255,32 +271,58 @@ function attributeRandomizer (digits){
     result = Math.round(digits.slice((rNh),(rNh+2))/10)
      return  result != 0 ? result : "1"
 }
-//number of cannons based on a min and a max
-function cannonInstaller(min,max){
+//number generator helper based on a min and a max
+function RandomAttributeGenerator(min,max){
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+//Populate ship with cannons
+function cannonInstaller(numberOfCannonsToInstall){
+  for (i=0; i < numberOfCannonsToInstall; i++ ){
+  let cannon = document.createElement("div")
+  cannon.setAttribute("class","col text-center")
+  cannon.innerHTML= cannonHTML;
+  factionCannonDeckHTML.appendChild(cannon)
+  cannonArray.push(cannon)
+  }
+}
+
 //Disable buttons while not your turn
-function disableButtons(){
-  let currentbuttonSet = enemyButtons;
+function disableButtons(buttonabarID){
+  if(buttonabarID=="enemybuttons"){
+  currentbuttonSet = enemyButtons
   currentbuttonSet.setAttribute("style","pointer-events:none ; opacity:0.5")
+  playerButtons.removeAttribute("style")
+  }else if(buttonabarID=="playerbuttons"){
+    currentbuttonSet = playerButtons
+    currentbuttonSet.setAttribute("style","pointer-events:none ; opacity:0.5")
+    enemyButtons.removeAttribute("style")
+    }
+
+
 }
 
 //Places the piratein the right ship
-function pirateSorter (faction){
+function factionSorter (faction){
     if (faction=="player"){
         factionListHTML= playerCrewListHTML  
         factionShipHTML= playerShipHTML
         factionShipdeckHTML= playerShipDeckHTML
-        // factionCannonDeckHTML = playerCanonDeckHTML
+        factionCannonDeckHTML = playerCanonDeckHTML
+        cannonHTML= `<object data="./assets/canon-grey.svg" width="50vw" class="player-cannon"> </object>`
         crew = playerCrew
+        cannonArray = playerCannons
+        shipArray = playerShips
     }
     if (faction=="enemy"){
       factionListHTML= enemyCrewListHTML 
         factionShipHTML= enemyShipHTML
         factionShipdeckHTML= enemyShipDeckHTML
-        //factionCannonDeckHTML = enemyCanonDeckHTML
+        factionCannonDeckHTML = enemyCanonDeckHTML
+        cannonHTML= `<object data="./assets/canon-grey.svg" width="50vw" class="enemy-cannon"> </object>`
         crew = enemyCrew
+        cannonArray = enemyCannons
+        shipArray = enemyShips
     }
 }
 
@@ -298,11 +340,60 @@ function getFlagEmoji(countryCode) {
   return String.fromCodePoint(...codePoints);
 }
 
+//delay loop function
+const delayLoop = (fn, delay) => {
+  return (x, i) => {
+    setTimeout(() => {
+      fn(x);
+    }, i * delay);
+  };
+};
+
 //Initialize Game
 
 CrewUp(4,"es","player")
 CrewUp(4,"gb","enemy")
-disableButtons()
+masterShipBuilder("player");
+masterShipBuilder("enemy")
+//disableButtons()
 //generateShipName()
-console.log(playerCrew)
+//console.log(playerCrew)
+
+//handling buttons
+playerButtons.addEventListener("click", playerButtonAction)
+
+function playerButtonAction(evt){
+  evt.preventDefault;
+  if (evt.target.innerText== "Attack"){
+    playerCannons.forEach(cannon =>cannon.classList.remove('animate','bounce'))
+    playerCannons.forEach(cannon =>void cannon.offsetWidth);
+    playerCannons.forEach(cannon =>cannon.classList.add('animate','bounce'))
+    cannonFX.cloneNode(true).play()
+    }
+    disableButtons(evt.path[2].id) 
+   }
+
+enemyButtons.addEventListener("click", enemyButtonAction)
+
+function enemyButtonAction(evt){
+  evt.preventDefault;
+  if (evt.target.innerText== "Attack"){
+    enemyCannons.forEach(cannon =>cannon.classList.remove('animate','bounce'))
+    enemyCannons.forEach(cannon =>void cannon.offsetWidth);
+    enemyCannons.forEach(cannon =>cannon.classList.add('animate','bounce'))
+    cannonFX.cloneNode(true).play()
+
+    } 
+    disableButtons(evt.path[2].id) 
+  console.dir(evt.path[2].id)
+}
+
+
+//Update the UI
+function updatUI(){
+  playerShipHealth = playerShips[0].health
+playerSailHealth = playerShips[0].sails
+enemyShipHealth = enemyShips[0].health
+enemysailHealth = enemyShips[0].sails
+}
 
