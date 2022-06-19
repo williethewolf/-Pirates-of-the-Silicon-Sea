@@ -63,7 +63,8 @@ const enemySailHealth = document.querySelector("#enemy-ship-sails")
 //Modals
 const instructionsModal = document.querySelector("#instructions-modal")
 const victoryModalHTML= document.querySelector("#victory-modal")
-var vModal = new bootstrap.Modal(document.getElementById("victory-modal"))
+//bootstrap modal not working
+// var vModal = new bootstrap.Modal(document.getElementById("victory-modal"))
 const vMCaptainHTML = document.querySelector("#vMCaptain")
 
 //Game buttons
@@ -434,6 +435,7 @@ function updateUI(){
 }
 
 function victoryModal(captain){
-  vModal.show()
-  vMCaptainHMTL.innerText = captain
+  //bootstrap modal tamp disabled
+  // vModal.show()
+  vMCaptainHTML.innerText = captain
 }
