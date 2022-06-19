@@ -29,7 +29,7 @@ class Pirate {
   }
 
   class Ship {
-    constructor(faction, flag, name, cannons, health, speed, sails, damageAversion, crew) {
+    constructor(faction, flag, name, cannons, health, speed, sails, damageAversion, crew, captain) {
       this.faction = faction;
       this.flag = flag;
       this.name = name;
@@ -40,6 +40,7 @@ class Pirate {
       this.sails = sails;
       this.damageAversion = damageAversion;
       this.crew = crew;
+      this.captain = captain;
     }
   }
 
@@ -54,15 +55,24 @@ const enemyShipDeckHTML = document.querySelector("#enemy-shipdeck")
 const playerCanonDeckHTML = document.querySelector("#player-cannon-deck")
 const enemyCanonDeckHTML = document.querySelector("#enemy-cannon-deck")
 
-const playerShipHealth = document.querySelector("#playershiphealth")
-const playerSailHealth = document.querySelector("#playersailhealth")
-const enemyShipHealth = document.querySelector("#enemyshiphealth")
-const enemysailHealth = document.querySelector("#enemysailhealth")
+const playerShipHealth = document.querySelector("#player-ship-health")
+const playerSailHealth = document.querySelector("#player-ship-sails")
+const enemyShipHealth = document.querySelector("#enemy-ship-health")
+const enemySailHealth = document.querySelector("#enemy-ship-sails")
+
+//Modals
+const instructionsModal = document.querySelector("#instructions-modal")
+const victoryModalHTML= document.querySelector("#victory-modal")
+var vModal = new bootstrap.Modal(document.getElementById("victory-modal"))
+const vMCaptainHTML = document.querySelector("#vMCaptain")
 
 //Game buttons
 const playerButtons = document.querySelector("#playerbuttons")
 const enemyButtons = document.querySelector("#enemybuttons")
 
+//UI interactables
+const restartButton = document.querySelector("#restart-button")
+const instructionsButton = document.querySelector("#instructions-button")
 
 //variables
 let playerCrew= []
@@ -97,8 +107,8 @@ function pirateCard (pirate,faction){
   <button class="btn btn-link text-decoration-none font-weight-bold link-dark "  data-bs-toggle="collapse" data-bs-target=" #photobutton${generateUniqueID(pirate.name)}, #collapse${generateUniqueID(pirate.name)}, #${generateUniqueID(pirate.name)}" aria-expanded="true" aria-controls="collapse1">
     <div class="container-fluid">
     <div class = "row align-items-center">
-    <div class="col-1 col-s flag-box">
-      <div class= "container d-flex">
+    <div class="col-2 col-s flag-box">
+      <div class= "container d-flex text-center">
         <span class="fs-6 fw-light lh-1">${getFlagEmoji(pirate.nation)}</span>
       </div>
       </div>
@@ -114,21 +124,21 @@ function pirateCard (pirate,faction){
       </div>
     
     <div class="row">
-      <div = class = "col mini-box">
-        <span class="text-success">V:${pirate.health}</span>
-      </div>
-      <div = class = "col mini-box">
-        <span class="text-danger">B:${pirate.attack}</span>
-      </div>
-      <div class = "col mini-box">
-        <span class="text-info">S:${pirate.defense}</span>
-      </div>
+    <!-- <div = class = "col mini-box">
+    <span class="text-success">V:${pirate.health}</span>
+  </div>
+  <div = class = "col mini-box">
+    <span class="text-danger">B:${pirate.attack}</span>
+  </div>
+  <div class = "col mini-box">
+    <span class="text-info">S:${pirate.defense}</span>
+  </div> -->
     </div>
   </div>
   </div>
   </div>   
   <div class="text-end me-md-4 mb-2">
-  <span class="fs-6 fw-light lh-1">${pirate.crew} ${getFlagEmoji(pirate.nation)}</span>
+  <span class="fs-6 fw-light lh-1">${pirate.warcry}, ${pirate.nation}</span>
   <div>
   </button>
   </div>
@@ -148,7 +158,7 @@ function pirateCard (pirate,faction){
 
   <div class="text-center"> 
         <h3 class="mt-2">${pirate.name}</h3>
-        <span class="mt-1 clearfix">${pirate.crew} ${getFlagEmoji(pirate.nation)}</span>
+        <span class="mt-1 clearfix">${pirate.warcry} ${getFlagEmoji(pirate.nation)}</span>
         
         <div class="row mt-3 mb-3">
         
@@ -199,11 +209,11 @@ function pirateCard (pirate,faction){
     pirateAvatar.innerHTML = `  <div class="row">
                               <img src=${pirate.portrait} width="75px" class="rounded-circle mx-auto d-block">
                             </div>
-                            <div class="row d-flex position-relative">
-                              <div class="col circle-small-attack">${pirate.attack}</div>
-                              <div class="col circle-small-health">${pirate.health}</div>
-                              <div class="col circle-small-defense">${pirate.defense}</div>
-                            </div>`
+                            <!-- <div class="row d-flex position-relative">
+                            <div class="col circle-small-attack">${pirate.attack}</div>
+                            <div class="col circle-small-health">${pirate.health}</div>
+                            <div class="col circle-small-defense">${pirate.defense}</div>
+                          </div> -->`
     factionShip.appendChild(pirateAvatar)
   }
 
@@ -213,6 +223,7 @@ function pirateSquad (results,faction){
                             pirate.portrait = prt.picture.large
                             pirate.name = `${prt.name.first} ${prt.name.last}`
                             pirate.nation = prt.nat
+                            pirate.warcry=prt.location.city
                             let digits = prt.cell.replace(/\D/g, '').replace("0","");
                             pirate.health = attributeRandomizer(digits)
                             pirate.attack = attributeRandomizer(digits)
@@ -230,6 +241,9 @@ function masterShipBuilder(faction){
   let ship = new Ship;
 
   ship.faction = faction;
+  if (faction== "player"){
+    ship.captain = "Jack Sparrow"
+  } else { ship.captain = "Captain Barbossa"}
   //ship.flag = flag;
   ship.name = "A Ship";//implement name generator
   ship.health = 100;
@@ -351,8 +365,8 @@ const delayLoop = (fn, delay) => {
 
 //Initialize Game
 
-CrewUp(4,"es","player")
-CrewUp(4,"gb","enemy")
+CrewUp(RandomAttributeGenerator(3,4),"es","player")
+CrewUp(RandomAttributeGenerator(3,4),"gb","enemy")
 masterShipBuilder("player");
 masterShipBuilder("enemy")
 //disableButtons()
@@ -369,6 +383,9 @@ function playerButtonAction(evt){
     playerCannons.forEach(cannon =>void cannon.offsetWidth);
     playerCannons.forEach(cannon =>cannon.classList.add('animate','bounce'))
     cannonFX.cloneNode(true).play()
+    for(let i =0;i<playerCannons.length; i++){
+      doDamage(enemyShips)
+    }
     }
     disableButtons(evt.path[2].id) 
    }
@@ -382,18 +399,41 @@ function enemyButtonAction(evt){
     enemyCannons.forEach(cannon =>void cannon.offsetWidth);
     enemyCannons.forEach(cannon =>cannon.classList.add('animate','bounce'))
     cannonFX.cloneNode(true).play()
-
+    for(let i =0;i<enemyCannons.length; i++){
+    doDamage(playerShips)
+  }
     } 
     disableButtons(evt.path[2].id) 
-  console.dir(evt.path[2].id)
 }
 
+//Damage Function - I will add precission down the line to make shots more damaging the longer the player wait to shoot.
+function doDamage(target){
+  let damage= RandomAttributeGenerator(1,3)
+  if(Math.random() < 0.7){
+    if(target[0].health - damage>0){
+    target[0].health -= damage
+    }
+    else{ victoryModal(target.captain)}
+  }else{
+    if(target[0].sails - damage>0){
+      target[0].sails -= damage
+      }else{if(target[0].health - damage>0){
+        target[0].health -= damage
+        }
+        else{ victoryModal(target.captain)}}
+  }
+  updateUI()
+}
 
 //Update the UI
-function updatUI(){
-  playerShipHealth = playerShips[0].health
-playerSailHealth = playerShips[0].sails
-enemyShipHealth = enemyShips[0].health
-enemysailHealth = enemyShips[0].sails
+function updateUI(){
+  playerShipHealth.setAttribute("style",`width:${playerShips[0].health}%`)
+  playerSailHealth.setAttribute("style",`width:${playerShips[0].sails}%`) 
+  enemyShipHealth.setAttribute("style",`width:${enemyShips[0].health}%`)
+  enemySailHealth.setAttribute("style",`width:${enemyShips[0].sails}%`) 
 }
 
+function victoryModal(captain){
+  vModal.show()
+  vMCaptainHMTL.innerText = captain
+}
