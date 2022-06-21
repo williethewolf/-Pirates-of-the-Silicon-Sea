@@ -71,9 +71,8 @@ const playerButtons = document.querySelector("#playerbuttons")
 const enemyButtons = document.querySelector("#enemybuttons")
 
 //UI interactables
-const restartButton = document.getElementById("restart-button")
+const restartButton = document.querySelector("#restart-button")
 const instructionsButton = document.querySelector("#instructions-button")
-//console.log(restartButton)
 
 //variables
 let playerCrew= []
@@ -406,10 +405,14 @@ function enemyButtonAction(evt){
     } 
     disableButtons(evt.path[2].id) 
 }
-
-//restartButton.addEventListener ("click", restartGame)
+// if(restartButton){
+//   restartButton.addEventListener('click', restartGame);
+// }
+window.onload=function(){
+restartButton.addEventListener ("click", restartGame)}
 
 function restartGame(evt){
+  console.log("trying to restart!")
   evt.preventDefault
   location.reload();
 }
@@ -421,14 +424,14 @@ function doDamage(target){
     if(target[0].health - damage>=0){
     target[0].health -= damage
     }
-    else{ target[0].health = 0;victoryModal(target.captain)}
+    else{ target[0].health = 0;victoryModal(target[0].captain)}
   }else{
     if(target[0].sails - damage>=0){
       target[0].sails -= damage
       }else{if(target[0].health - damage>=0){
         target[0].health -= damage
         }
-        else{ target[0].health = 0; victoryModal(target.captain)}}
+        else{ target[0].health = 0; victoryModal(target[0].captain)}}
   }
   updateUI()
 }
@@ -451,4 +454,5 @@ function victoryModal(captain){
   var vModal = new bootstrap.Modal(document.getElementById("victory-modal"))
    vModal.show()
   vMCaptainHTML.innerText = captain
+  vModal.onExited(restartGame)
 }
