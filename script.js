@@ -63,8 +63,7 @@ const enemySailHealth = document.querySelector("#enemy-ship-sails")
 //Modals
 const instructionsModal = document.querySelector("#instructions-modal")
 const victoryModalHTML= document.querySelector("#victory-modal")
-//bootstrap modal not working
-// var vModal = new bootstrap.Modal(document.getElementById("victory-modal"))
+
 const vMCaptainHTML = document.querySelector("#vMCaptain")
 
 //Game buttons
@@ -72,8 +71,9 @@ const playerButtons = document.querySelector("#playerbuttons")
 const enemyButtons = document.querySelector("#enemybuttons")
 
 //UI interactables
-const restartButton = document.querySelector("#restart-button")
+const restartButton = document.getElementById("restart-button")
 const instructionsButton = document.querySelector("#instructions-button")
+//console.log(restartButton)
 
 //variables
 let playerCrew= []
@@ -206,7 +206,7 @@ function pirateCard (pirate,faction){
   function allAboard(pirate,factionShip){
   
     let pirateAvatar = document.createElement("div")
-    pirateAvatar.setAttribute("class","col-3 p-2 position-relative avatar")
+    pirateAvatar.setAttribute("class","col-3 p-1 position-relative avatar my-auto")
     pirateAvatar.innerHTML = `  <div class="row">
                               <img src=${pirate.portrait} width="75px" class="rounded-circle mx-auto d-block">
                             </div>
@@ -317,7 +317,7 @@ function disableButtons(buttonabarID){
 
 }
 
-//Places the piratein the right ship
+//Places the pirate in the right faction ship
 function factionSorter (faction){
     if (faction=="player"){
         factionListHTML= playerCrewListHTML  
@@ -407,21 +407,28 @@ function enemyButtonAction(evt){
     disableButtons(evt.path[2].id) 
 }
 
+//restartButton.addEventListener ("click", restartGame)
+
+function restartGame(evt){
+  evt.preventDefault
+  location.reload();
+}
+
 //Damage Function - I will add precission down the line to make shots more damaging the longer the player wait to shoot.
 function doDamage(target){
   let damage= RandomAttributeGenerator(1,3)
   if(Math.random() < 0.7){
-    if(target[0].health - damage>0){
+    if(target[0].health - damage>=0){
     target[0].health -= damage
     }
-    else{ victoryModal(target.captain)}
+    else{ target[0].health = 0;victoryModal(target.captain)}
   }else{
-    if(target[0].sails - damage>0){
+    if(target[0].sails - damage>=0){
       target[0].sails -= damage
-      }else{if(target[0].health - damage>0){
+      }else{if(target[0].health - damage>=0){
         target[0].health -= damage
         }
-        else{ victoryModal(target.captain)}}
+        else{ target[0].health = 0; victoryModal(target.captain)}}
   }
   updateUI()
 }
@@ -429,13 +436,19 @@ function doDamage(target){
 //Update the UI
 function updateUI(){
   playerShipHealth.setAttribute("style",`width:${playerShips[0].health}%`)
-  playerSailHealth.setAttribute("style",`width:${playerShips[0].sails}%`) 
+  playerShipHealth.innerHTML=`${playerShips[0].health}%`
+  playerSailHealth.setAttribute("style",`width:${playerShips[0].sails}%`)
+  playerSailHealth.innerHTML=`${playerShips[0].sails}%`  
   enemyShipHealth.setAttribute("style",`width:${enemyShips[0].health}%`)
+  enemyShipHealth.innerHTML=`${enemyShips[0].health}%`
   enemySailHealth.setAttribute("style",`width:${enemyShips[0].sails}%`) 
+  enemySailHealth.innerHTML=`${enemyShips[0].sails}%` 
 }
 
 function victoryModal(captain){
   //bootstrap modal tamp disabled
-  // vModal.show()
+  //bootstrap modal not working
+  var vModal = new bootstrap.Modal(document.getElementById("victory-modal"))
+   vModal.show()
   vMCaptainHTML.innerText = captain
 }
