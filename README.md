@@ -1,23 +1,21 @@
 # Project-One
 
 First SEI project using APIs
-# Pirates of Silicon sea: 
+# APP: Pirates of The Silicon Sea: 
 A multiplayer naval combat game for 2 players, playing locally, sharing the device.
 
 # Technologies Used:
-Project developed with HTML5, CSS, Bootstrap and JavaScript.
+Project developed with HTML5, CSS, Bootstrap and W3 CSS frameworks, and JavaScript.
+
 Crew Avatars, names and stats extracted from https://randomuser.me/ API.
+
+Sound effects!
 
 # Screenshot(s): 
 
 |Screen shot on iPad:| Screen shot on Pixel 5:|
 |       :---:        |          :---:         |
 |<img src="https://git.generalassemb.ly/willieochoa/Pirates-of-Silicon-Sea/blob/main/assets/Screenshots/ipad_Screenshot.png" height="200" />| <img src="https://git.generalassemb.ly/willieochoa/Pirates-of-Silicon-Sea/blob/main/assets/Screenshots/pixel%205%20screenshot.png" height="200" />|
-
-
-
-
-
 
 # Getting Started: 
 App Link:
