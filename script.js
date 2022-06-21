@@ -384,7 +384,7 @@ function playerButtonAction(evt){
     playerCannons.forEach(cannon =>cannon.classList.add('animate','bounce'))
     cannonFX.cloneNode(true).play()
     for(let i =0;i<playerCannons.length; i++){
-      doDamage(enemyShips)
+      doDamage(enemyShips, playerShips)
     }
     }
     disableButtons(evt.path[2].id) 
@@ -400,7 +400,7 @@ function enemyButtonAction(evt){
     enemyCannons.forEach(cannon =>cannon.classList.add('animate','bounce'))
     cannonFX.cloneNode(true).play()
     for(let i =0;i<enemyCannons.length; i++){
-    doDamage(playerShips)
+    doDamage(playerShips, enemyShips)
   }
     } 
     disableButtons(evt.path[2].id) 
@@ -418,20 +418,20 @@ function restartGame(evt){
 }
 
 //Damage Function - I will add precission down the line to make shots more damaging the longer the player wait to shoot.
-function doDamage(target){
-  let damage= RandomAttributeGenerator(1,3)
+function doDamage(target, attacker){
+  let damage= RandomAttributeGenerator(0,3)
   if(Math.random() < 0.7){
-    if(target[0].health - damage>=0){
+    if(target[0].health - damage>0){
     target[0].health -= damage
     }
-    else{ target[0].health = 0;victoryModal(target[0].captain)}
+    else{ target[0].health = 0;updateUI();victoryModal(attacker[0].captain)}
   }else{
     if(target[0].sails - damage>=0){
       target[0].sails -= damage
-      }else{if(target[0].health - damage>=0){
+      }else{if(target[0].health - damage>0){
         target[0].health -= damage
         }
-        else{ target[0].health = 0; victoryModal(target[0].captain)}}
+        else{ target[0].health = 0; updateUI(); victoryModal(attacker[0].captain)}}
   }
   updateUI()
 }
@@ -451,8 +451,10 @@ function updateUI(){
 function victoryModal(captain){
   //bootstrap modal tamp disabled
   //bootstrap modal not working
-  var vModal = new bootstrap.Modal(document.getElementById("victory-modal"))
+  if (captain == "Captain Barbossa"){ document.getElementById("victory-modal").classList.add("backwards")}
+   var vModal = new bootstrap.Modal(document.getElementById("victory-modal"))
    vModal.show()
   vMCaptainHTML.innerText = captain
+  
   vModal.onExited(restartGame)
 }
