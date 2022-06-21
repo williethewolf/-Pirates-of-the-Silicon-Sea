@@ -9,7 +9,15 @@ Project developed with HTML5, CSS, Bootstrap and JavaScript.
 Crew Avatars, names and stats extracted from https://randomuser.me/ API.
 
 # Screenshot(s): 
-Images of your actual app.
+
+|Screen shot on iPad:| Screen shot on Pixel 5:|
+|       :---:        |          :---:         |
+|<img src="https://git.generalassemb.ly/willieochoa/Pirates-of-Silicon-Sea/blob/main/assets/Screenshots/ipad_Screenshot.png" height="200" />| <img src="https://git.generalassemb.ly/willieochoa/Pirates-of-Silicon-Sea/blob/main/assets/Screenshots/pixel%205%20screenshot.png" height="200" />|
+
+
+
+
+
 
 # Getting Started: 
 App Link:
@@ -27,3 +35,5 @@ Taking turns, the players attack each other until one of the ship's hull health 
 -**Upgrades:** Especial encounters with trading posts will allow to improve the ship.
 
 -**Crews, moral and Boarding:** Crews can board enemy ships for a better loot yield and the chance of surrender if moral is too low.
+
+-**And more** ***swashbuckling*** **action!**
