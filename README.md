@@ -1,14 +1,29 @@
 # Project-One
+
 First SEI project using APIs
-# <Your app's title>: A description of your app. Background info of the app is a nice touch.
+# Pirates of Silicon sea: 
+A multiplayer naval combat game for 2 players, playing locally, sharing the device.
 
 # Technologies Used:
-List of the technologies used, e.g., JavaScript, HTML, CSS...
+Project developed with HTML5, CSS, Bootstrap and JavaScript.
+Crew Avatars, names and stats extracted from https://randomuser.me/ API.
 
 # Screenshot(s): 
 Images of your actual app.
 
 # Getting Started: 
-In this section include the link to your deployed app and any instructions you deem important.
+App Link:
+https://pages.git.generalassemb.ly/willieochoa/Pirates-of-Silicon-Sea/
+
+Taking turns, the players attack each other until one of the ship's hull health is 0. Sails work as a buffer against damage with 30% chance of receiving damage. If sail's health reaches 0, all the damage will be absorbed by the hull.
 
 # Future Enhancements
+-**Single player experience:** Where the AI takes control of the second player.
+
+-**Fleets!:** Both player and Enemy can have fleets consisting of multiple ships.
+
+-**Scoring System:** Defeating or capturing adversary ships will allow you to earn gold for upgrades.
+
+-**Upgrades:** Especial encounters with trading posts will allow to improve the ship.
+
+-**Crews, moral and Boarding:** Crews can board enemy ships for a better loot yield and the chance of surrender if moral is too low.
