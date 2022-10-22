@@ -12,7 +12,7 @@ Sound effects!
 
 |Screen shot on iPad:| Screen shot on Pixel 5:|
 |       :---:        |          :---:         |
-|<img src="https://github.com/williethewolf/-Pirates-of-the-Silicon-Sea/blob/main/assets/Screenshots/ipad_Screenshot.png" height="200" />| <img src="https://github.com/williethewolf/-Pirates-of-the-Silicon-Sea/blob/main/assets/Screenshots/pixel%205%20screenshot.png" height="200" />|
+|<img src="https://github.com/williethewolf/Pirates-of-the-Silicon-Sea/blob/main/assets/Screenshots/ipad_Screenshot.png" height="200" />| <img src="https://github.com/williethewolf/Pirates-of-the-Silicon-Sea/blob/main/assets/Screenshots/pixel%205%20screenshot.png" height="200" />|
 
 # Getting Started: 
 App Link:
