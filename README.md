@@ -1,6 +1,3 @@
-# Project-One
-
-First SEI project using APIs
 # APP: Pirates of The Silicon Sea: 
 A multiplayer naval combat game for 2 players, playing locally, sharing the device.
 
@@ -15,7 +12,7 @@ Sound effects!
 
 |Screen shot on iPad:| Screen shot on Pixel 5:|
 |       :---:        |          :---:         |
-|<img src="https://git.generalassemb.ly/willieochoa/Pirates-of-Silicon-Sea/blob/main/assets/Screenshots/ipad_Screenshot.png" height="200" />| <img src="https://git.generalassemb.ly/willieochoa/Pirates-of-Silicon-Sea/blob/main/assets/Screenshots/pixel%205%20screenshot.png" height="200" />|
+|<img src="https://github.com/willieochoa/Pirates-of-Silicon-Sea/blob/main/assets/Screenshots/ipad_Screenshot.png" height="200" />| <img src="https://github.com/willieochoa/Pirates-of-Silicon-Sea/blob/main/assets/Screenshots/pixel%205%20screenshot.png" height="200" />|
 
 # Getting Started: 
 App Link:
